@@ -1,0 +1,72 @@
+/* The supplied photos share a square frame; preserve their original subjects. */
+.category {
+    --category-neon-shadow:
+        0 0 0 1px color-mix(in srgb, var(--neon-rose) 80%, transparent),
+        0 0 0 3px color-mix(in srgb, var(--neon-violet) 35%, transparent),
+        0 0 15px color-mix(in srgb, var(--neon-rose) 32%, transparent),
+        0 0 25px color-mix(in srgb, var(--neon-violet) 24%, transparent),
+        0 5px 17px color-mix(in srgb, var(--neon-gold) 18%, transparent);
+    min-width: 0;
+}
+.categories .category-art.category-photo {
+    display: block;
+    height: auto;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px #2616380c;
+    transform: none;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.category-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    transition: transform .3s ease;
+}
+.category-photo--chaveiros .category-image {
+    object-fit: cover;
+    padding: 0;
+}
+.categories .category:is([aria-pressed="true"], :focus-visible) .category-photo {
+    border-color: var(--neon-rose);
+    box-shadow: var(--category-neon-shadow);
+}
+.category:focus-visible .category-image { transform: scale(1.04); }
+.category-product-count {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    margin-top: 10px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.category[aria-pressed="true"] .category-product-count {
+    border-color: color-mix(in srgb, var(--neon-violet) 45%, var(--border));
+    background: var(--surface-soft);
+    color: var(--accent);
+}
+/* Gate hover effects so a touch device cannot retain a synthetic hover glow. */
+@media (hover: hover) and (pointer: fine) {
+    .categories .category:hover .category-photo {
+        border-color: var(--neon-rose);
+        box-shadow: var(--category-neon-shadow);
+        transform: translateY(-4px);
+    }
+    .category:hover .category-image { transform: scale(1.04); }
+}
+@media (max-width: 600px) {
+    .categories .category-art.category-photo { border-radius: 12px; }
+    .category-image { padding: 8px; }
+    .category-photo--chaveiros .category-image { padding: 0; }
+}

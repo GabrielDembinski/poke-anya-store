@@ -1,0 +1,47 @@
+﻿POKEANYA STORE — PAINEL E CATÁLOGO
+
+COMO ABRIR LOCALMENTE
+No Windows, dê dois cliques em INICIAR-LOJA.bat e mantenha a janela aberta.
+Requer PHP 8.2 ou mais recente, com PDO SQLite, disponível no PATH.
+Loja: http://127.0.0.1:8000
+Painel: http://127.0.0.1:8000/admin.html
+Clientes entram livremente, sem cadastro ou login.
+O servidor PHP executa a autenticação e o banco compartilhado. Live Server,
+python -m http.server e abrir HTML diretamente não executam essa API.
+O README.md explica a configuração e os fluxos completos.
+
+ADMINISTRADOR
+Use CONFIGURAR-ADMIN.bat apenas para criar o primeiro acesso.
+Uma conta existente é preservada. Não existe senha padrão.
+Para recuperar a senha, use RECUPERAR-ADMIN.bat com o e-mail já cadastrado.
+Ao terminar o trabalho, use Sair do painel para encerrar o acesso.
+ADMINISTRADOR.md e SENHAS.md explicam o acesso e os limites da sessão.
+
+O QUE MUDOU
+- Cadastre produtos pelo painel: foto, nome, preço, categoria, descrição e estoque.
+- Use os três pontinhos para editar ou remover, com confirmação de remoção.
+- Estoque zero permite pedido sob encomenda; o produto continua na vitrine.
+- Clientes preparam a lista e enviam a mensagem pelo WhatsApp.
+- O estoque só diminui após a aprovação manual da venda no painel.
+- Se o pedido ultrapassar o saldo, o restante fica como encomenda, sem saldo negativo.
+- Temas Identidade da loja, Claro e Escuro; fundo animado nas cores da marca.
+- Exporte/restaure backups pelo painel.
+
+BANCO, BACKUP E PUBLICAÇÃO
+Produtos, imagens, pedidos e avaliações ficam no banco privado do servidor.
+BACKUP-BANCO.bat cria cópias privadas dos bancos, incluindo o administrador.
+O backup JSON do painel contém dados comerciais e não substitui essa cópia.
+Migrar a base administrativa atual preserva o e-mail e a senha existentes.
+O projeto ainda precisa ser instalado numa hospedagem compatível com PHP,
+PDO SQLite, regras .htaccess compatíveis, HTTPS e pasta privada persistente.
+release/PokeAnya-Store.zip contém o código e os recursos públicos, sem bancos
+ou configurações privadas. Esses dados são migrados separadamente.
+O provedor escolhido é a Hostinger; o plano ainda não foi contratado.
+Comece por PUBLICAR-HOSTINGER.md para confirmar os requisitos antes da compra.
+PUBLICAR-LOJA.md explica a migração e a configuração geral.
+Confira os contatos da loja antes de publicar. O WhatsApp é o canal de
+atendimento dos pedidos; não há pagamento ou envio automático de mensagem.
+
+CONTATOS
+WhatsApp: +55 (93) 99149-4273 (PHONE em script.js).
+Instagram: https://www.instagram.com/pokeanya.store/

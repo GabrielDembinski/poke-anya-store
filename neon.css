@@ -1,0 +1,894 @@
+/* Decorative storefront layer. Only transforms and opacity move; glows stay static. */
+:root {
+    --neon-violet: #a342ed;
+    --neon-rose: #ef499e;
+    --neon-gold: #cf9e19;
+    --neon-ring-opacity: .38;
+    --neon-ribbon-opacity: .40;
+    --neon-motif-opacity: .25;
+    --neon-halo-opacity: .8;
+    --neon-orbit-duration: 22s;
+    --neon-drift-duration: 16s;
+    --neon-ribbon-motion: neon-tide;
+    --neon-ring-motion: neon-drift;
+    --neon-orbit-direction: normal;
+    --neon-dust-opacity: .50;
+    --neon-comet-opacity: .48;
+}
+
+html[data-theme="claro"] {
+    --neon-violet: #9c42d6;
+    --neon-rose: #dc4089;
+    --neon-gold: #ae8213;
+    --neon-ring-opacity: .25;
+    --neon-ribbon-opacity: .28;
+    --neon-motif-opacity: .18;
+    --neon-halo-opacity: .48;
+    --neon-orbit-duration: 32s;
+    --neon-drift-duration: 22s;
+    --neon-ribbon-motion: neon-breeze;
+    --neon-ring-motion: neon-breathe;
+    --neon-orbit-direction: reverse;
+    --neon-dust-opacity: .36;
+    --neon-comet-opacity: .32;
+}
+
+html[data-theme="escuro"] {
+    --neon-violet: #bd6bff;
+    --neon-rose: #ff65b2;
+    --neon-gold: #ffdc70;
+    --neon-ring-opacity: .60;
+    --neon-ribbon-opacity: .56;
+    --neon-motif-opacity: .34;
+    --neon-halo-opacity: .9;
+    --neon-orbit-duration: 18s;
+    --neon-drift-duration: 14s;
+    --neon-ribbon-motion: neon-current;
+    --neon-ring-motion: neon-drift;
+    --neon-orbit-direction: normal;
+    --neon-dust-opacity: .65;
+    --neon-comet-opacity: .65;
+}
+
+.site-atmosphere,
+.hero-neon {
+    overflow: hidden;
+    pointer-events: none;
+    contain: strict;
+}
+
+.site-atmosphere {
+    inset: 0;
+}
+
+.site-atmosphere *,
+.hero-neon * {
+    pointer-events: none;
+}
+
+.site-atmosphere i {
+    opacity: var(--neon-halo-opacity);
+    animation: neon-halo 15s ease-in-out infinite alternate;
+}
+
+.site-atmosphere i:nth-child(1) {
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--neon-violet) 24%, transparent), transparent 66%);
+    left: -28%;
+    top: 4%;
+}
+
+.site-atmosphere i:nth-child(2) {
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--neon-rose) 22%, transparent), transparent 67%);
+    right: -27%;
+    top: 40%;
+    animation-delay: -5s;
+}
+
+.site-atmosphere i:nth-child(3) {
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--neon-gold) 17%, transparent), transparent 67%);
+    left: 8%;
+    bottom: -44%;
+    animation-delay: -10s;
+}
+
+.neon-orbit {
+    --neon-color: var(--neon-violet);
+    --neon-angle: -22deg;
+    position: absolute;
+    border: 1px solid color-mix(in srgb, var(--neon-color) 70%, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 15px color-mix(in srgb, var(--neon-color) 28%, transparent), inset 0 0 15px color-mix(in srgb, var(--neon-color) 18%, transparent);
+    opacity: var(--neon-ring-opacity);
+    animation: var(--neon-ring-motion) var(--neon-drift-duration) ease-in-out infinite alternate;
+}
+
+.neon-orbit::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px solid transparent;
+    border-top-color: var(--neon-color);
+    border-right-color: color-mix(in srgb, var(--neon-color) 35%, transparent);
+    border-radius: inherit;
+    filter: drop-shadow(0 0 5px var(--neon-color));
+    animation: neon-orbit-sweep var(--neon-orbit-duration) linear infinite;
+    animation-direction: var(--neon-orbit-direction);
+}
+
+.neon-orbit::after {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border: 1px dashed color-mix(in srgb, var(--neon-color) 35%, transparent);
+    border-radius: inherit;
+}
+
+.neon-orbit-one {
+    width: 600px;
+    height: 600px;
+    left: -400px;
+    top: 15%;
+}
+
+.neon-orbit-two {
+    --neon-color: var(--neon-rose);
+    --neon-angle: 26deg;
+    width: 610px;
+    height: 610px;
+    right: -430px;
+    top: 55%;
+    animation-delay: -7s;
+}
+
+.neon-orbit-two::before {
+    animation-delay: -9s;
+}
+
+.neon-orbit-dot {
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    animation: neon-orbit-sweep var(--neon-orbit-duration) linear infinite;
+    animation-direction: var(--neon-orbit-direction);
+    animation-delay: -7s;
+}
+
+.neon-orbit-dot::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--neon-color) 35%, white);
+    box-shadow: 0 0 6px 2px var(--neon-color), 0 0 16px 4px color-mix(in srgb, var(--neon-color) 45%, transparent);
+}
+
+.neon-orbit-two .neon-orbit-dot {
+    animation-delay: -15s;
+}
+
+.neon-orbit-dot::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 25px);
+    top: -1px;
+    width: 24px;
+    height: 2px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, transparent, var(--neon-color));
+}
+
+.neon-ribbon {
+    --neon-color: var(--neon-rose);
+    --neon-angle: -22deg;
+    position: absolute;
+    height: 200px;
+    border-top: 2px solid var(--neon-color);
+    border-radius: 50%;
+    box-shadow: 0 -8px 22px -14px var(--neon-color);
+    opacity: var(--neon-ribbon-opacity);
+    animation: var(--neon-ribbon-motion) 12s ease-in-out infinite alternate;
+}
+
+.neon-ribbon::after {
+    content: '';
+    position: absolute;
+    inset: 11px 3% auto;
+    height: 100%;
+    border-top: 1px solid color-mix(in srgb, var(--neon-color) 40%, transparent);
+    border-radius: inherit;
+}
+
+.neon-ribbon-one {
+    width: 75%;
+    left: -35%;
+    top: 49%;
+}
+
+.neon-ribbon-two {
+    --neon-color: var(--neon-violet);
+    --neon-angle: 25deg;
+    width: 68%;
+    right: -39%;
+    top: 12%;
+    animation-delay: -6s;
+}
+
+.neon-motif {
+    --neon-color: var(--neon-violet);
+    --neon-angle: -12deg;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    opacity: var(--neon-motif-opacity);
+    filter: drop-shadow(0 0 7px color-mix(in srgb, var(--neon-color) 65%, transparent));
+    animation: neon-motif-float 10s ease-in-out infinite alternate;
+}
+
+.neon-motif::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--neon-color);
+    -webkit-mask: var(--neon-motif) center / contain no-repeat;
+    mask: var(--neon-motif) center / contain no-repeat;
+    animation: neon-motif-breathe 7s ease-in-out infinite alternate;
+}
+
+.neon-motif-cards::before {
+    animation-delay: -3s;
+}
+
+.neon-motif-spark::before {
+    animation-delay: -5s;
+}
+
+.neon-motif-orb {
+    --neon-motif: url('assets/neon-orb.svg');
+    left: -20px;
+    top: 71%;
+}
+
+.neon-motif-cards {
+    --neon-motif: url('assets/neon-cards.svg');
+    --neon-color: var(--neon-rose);
+    --neon-angle: 14deg;
+    right: 1.3%;
+    top: 27%;
+    animation-delay: -4s;
+}
+
+.neon-motif-spark {
+    --neon-motif: url('assets/neon-spark.svg');
+    --neon-color: var(--neon-gold);
+    --neon-angle: 8deg;
+    left: 2%;
+    top: 17%;
+    width: 65px;
+    height: 65px;
+    animation-delay: -7s;
+}
+
+.site-atmosphere>span {
+    color: var(--neon-violet);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--neon-violet) 65%, transparent);
+    animation-duration: 8s;
+}
+
+.site-atmosphere>span:nth-of-type(2n) {
+    color: var(--neon-rose);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--neon-rose) 65%, transparent);
+}
+
+.neon-dust {
+    position: absolute;
+    inset: 0;
+}
+
+.neon-dust-point {
+    --dust-x: 16px;
+    --dust-y: -45px;
+    --dust-color: var(--neon-violet);
+    position: absolute;
+    left: 5%;
+    top: 26%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--dust-color);
+    box-shadow: 0 0 8px 1px color-mix(in srgb, var(--dust-color) 60%, transparent);
+    opacity: 0;
+    animation: neon-dust-drift 16s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.neon-dust-point:nth-child(2) {
+    --dust-color: var(--neon-rose);
+    --dust-x: -14px;
+    --dust-y: -35px;
+    left: auto;
+    right: 4%;
+    top: 57%;
+    animation-delay: -11s;
+}
+
+.neon-dust-point:nth-child(3) {
+    --dust-color: var(--neon-gold);
+    --dust-x: 12px;
+    --dust-y: -28px;
+    left: 11%;
+    top: 84%;
+    animation-delay: -7s;
+}
+
+.neon-dust-point:nth-child(4) {
+    --dust-x: -12px;
+    --dust-y: -42px;
+    left: auto;
+    right: 14%;
+    top: 13%;
+    animation-delay: -14s;
+}
+
+.hero-neon .neon-dust-point:nth-child(1) {
+    left: 54%;
+    top: 20%;
+}
+
+.hero-neon .neon-dust-point:nth-child(2) {
+    right: 3%;
+    top: 70%;
+}
+
+.hero-neon .neon-dust-point:nth-child(3) {
+    left: 52%;
+    top: 85%;
+}
+
+.hero-neon .neon-dust-point:nth-child(4) {
+    right: 9%;
+    top: 8%;
+}
+
+.neon-comet {
+    position: absolute;
+    right: 9%;
+    top: 17%;
+    width: 90px;
+    height: 2px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, transparent, var(--neon-rose));
+    opacity: 0;
+    animation: neon-comet-pass 28s ease-out infinite;
+    animation-delay: -16s;
+}
+
+.neon-comet::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -1px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--neon-rose) 30%, white);
+    box-shadow: 0 0 8px 2px color-mix(in srgb, var(--neon-rose) 65%, transparent);
+}
+
+.hero-neon .neon-comet {
+    right: 14%;
+    top: 18%;
+    animation-delay: -1.5s;
+}
+
+.appearance-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.motion-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--accent);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.motion-toggle:hover {
+    background: var(--surface-soft);
+}
+
+.motion-toggle[aria-pressed="true"] {
+    background: var(--surface-soft);
+}
+
+.motion-toggle:disabled {
+    opacity: .6;
+}
+
+.motion-toggle [data-motion-icon] {
+    position: relative;
+    display: block;
+    width: 12px;
+    height: 12px;
+    font-size: 0;
+}
+
+.motion-toggle [data-motion-icon]::before,
+.motion-toggle [data-motion-icon]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 3px;
+    height: 12px;
+    border-radius: 1px;
+    background: currentColor;
+}
+
+.motion-toggle [data-motion-icon]::before {
+    left: 1px;
+}
+
+.motion-toggle [data-motion-icon]::after {
+    right: 1px;
+}
+
+.motion-toggle[aria-pressed="true"] [data-motion-icon]::before {
+    left: 3px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-left: 9px solid currentColor;
+    border-right: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.motion-toggle[aria-pressed="true"] [data-motion-icon]::after {
+    display: none;
+}
+
+/* A separate hero layer keeps neon visible above the hero's own background. */
+.hero {
+    isolation: isolate;
+}
+
+.hero-neon {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-neon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--hero-bg) 5%, transparent 55%);
+    opacity: .65;
+}
+
+.hero-inner,
+.hero-bottom {
+    z-index: 1;
+}
+
+.hero-neon .neon-orbit-one {
+    left: auto;
+    right: -5%;
+    top: -23%;
+    width: 650px;
+    height: 650px;
+}
+
+.hero-neon .neon-orbit-two {
+    --neon-color: var(--neon-gold);
+    right: 15%;
+    top: 26%;
+    width: 330px;
+    height: 330px;
+    opacity: calc(var(--neon-ring-opacity) * .65);
+}
+
+.hero-neon .neon-ribbon-one {
+    width: 65%;
+    left: -34%;
+    top: 69%;
+}
+
+.hero-neon .neon-ribbon-two {
+    --neon-color: var(--neon-rose);
+    width: 62%;
+    right: -20%;
+    top: 11%;
+}
+
+.hero-neon .neon-motif-orb {
+    left: 50%;
+    top: 7%;
+    width: 74px;
+    height: 74px;
+}
+
+.hero-neon .neon-motif-cards {
+    right: 1%;
+    top: auto;
+    bottom: 16%;
+    width: 88px;
+    height: 88px;
+}
+
+.hero-neon .neon-motif-spark {
+    left: 49%;
+    top: auto;
+    bottom: 12%;
+    width: 60px;
+    height: 60px;
+}
+
+html[data-theme="escuro"] .hero {
+    background: radial-gradient(ellipse at 92% 25%, #7e29bf24, transparent 55%), radial-gradient(ellipse at 8% 100%, #c22b831a, transparent 50%), var(--hero-bg);
+}
+
+html[data-theme="claro"] .hero-neon .neon-orbit-two {
+    --neon-color: var(--neon-rose);
+}
+
+@keyframes neon-orbit-sweep {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes neon-drift {
+    from {
+        transform: translate3d(0, 0, 0) rotate(var(--neon-angle));
+    }
+
+    to {
+        transform: translate3d(18px, -30px, 0) rotate(calc(var(--neon-angle) + 9deg));
+    }
+}
+
+@keyframes neon-breathe {
+    from {
+        transform: scale(.96) rotate(var(--neon-angle));
+    }
+
+    to {
+        transform: scale(1.04) rotate(calc(var(--neon-angle) + 5deg));
+    }
+}
+
+@keyframes neon-tide {
+    from {
+        transform: translate3d(0, 0, 0) rotate(var(--neon-angle));
+    }
+
+    to {
+        transform: translate3d(22px, -35px, 0) rotate(calc(var(--neon-angle) + 6deg));
+    }
+}
+
+@keyframes neon-breeze {
+    from {
+        transform: translate3d(-10px, 0, 0) rotate(var(--neon-angle));
+    }
+
+    to {
+        transform: translate3d(12px, -20px, 0) rotate(calc(var(--neon-angle) - 4deg));
+    }
+}
+
+@keyframes neon-current {
+    from {
+        transform: translate3d(-15px, 12px, 0) rotate(var(--neon-angle));
+    }
+
+    to {
+        transform: translate3d(30px, -30px, 0) rotate(calc(var(--neon-angle) + 10deg));
+    }
+}
+
+@keyframes neon-halo {
+    from {
+        transform: translate3d(0, 0, 0) scale(.95);
+        opacity: calc(var(--neon-halo-opacity) * .65);
+    }
+
+    to {
+        transform: translate3d(6%, -7%, 0) scale(1.12);
+        opacity: var(--neon-halo-opacity);
+    }
+}
+
+@keyframes neon-motif-float {
+    from {
+        transform: translate3d(0, 0, 0) rotate(var(--neon-angle));
+    }
+
+    to {
+        transform: translate3d(5px, -18px, 0) rotate(calc(var(--neon-angle) + 9deg));
+    }
+}
+
+@keyframes neon-motif-breathe {
+    from {
+        opacity: .55;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes neon-dust-drift {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(.6);
+    }
+
+    24%,
+    62% {
+        opacity: var(--neon-dust-opacity);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--dust-x), var(--dust-y), 0) scale(1);
+    }
+}
+
+@keyframes neon-comet-pass {
+
+    0%,
+    3% {
+        opacity: 0;
+        transform: translate3d(-45px, 28px, 0) rotate(-28deg);
+    }
+
+    6% {
+        opacity: var(--neon-comet-opacity);
+    }
+
+    13%,
+    100% {
+        opacity: 0;
+        transform: translate3d(150px, -76px, 0) rotate(-28deg);
+    }
+}
+
+@media (max-width: 900px) {
+    .site-atmosphere .neon-orbit-one {
+        width: 440px;
+        height: 440px;
+        left: -340px;
+    }
+
+    .site-atmosphere .neon-orbit-two {
+        width: 440px;
+        height: 440px;
+        right: -350px;
+    }
+
+    .site-atmosphere .neon-motif-cards {
+        right: -16px;
+        width: 75px;
+        height: 75px;
+    }
+
+    .hero-neon .neon-orbit-one {
+        right: -20%;
+        top: -5%;
+        width: 540px;
+        height: 540px;
+    }
+
+    .hero-neon .neon-orbit-two {
+        right: 2%;
+    }
+
+    .hero-neon .neon-motif-orb {
+        left: 46%;
+        width: 55px;
+        height: 55px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    /* Fewer, smaller layers keep the main mobile experience light and readable. */
+    .site-atmosphere .neon-orbit-two,
+    .site-atmosphere .neon-motif-orb,
+    .site-atmosphere .neon-ribbon-two {
+        display: none;
+    }
+
+    .site-atmosphere .neon-orbit-one {
+        width: 330px;
+        height: 330px;
+        left: -245px;
+        top: 34%;
+    }
+
+    .site-atmosphere .neon-ribbon-one {
+        width: 105%;
+        left: -55%;
+        top: 61%;
+    }
+
+    .site-atmosphere .neon-motif-cards {
+        width: 64px;
+        height: 64px;
+        right: -13px;
+        top: 20%;
+    }
+
+    .site-atmosphere .neon-motif-spark {
+        left: -8px;
+        top: 79%;
+        width: 44px;
+        height: 44px;
+    }
+
+    .site-atmosphere>span:nth-of-type(n+3) {
+        display: none;
+    }
+
+    .motion-toggle {
+        width: 34px;
+        height: 34px;
+    }
+
+    .appearance-controls {
+        gap: 5px;
+    }
+
+    .neon-dust-point:nth-child(n+3) {
+        display: none;
+    }
+
+    .neon-dust-point {
+        --dust-x: 8px;
+        --dust-y: -28px;
+        width: 2px;
+        height: 2px;
+    }
+
+    .hero-neon .neon-dust-point:nth-child(1) {
+        left: 7%;
+        top: 65%;
+    }
+
+    .hero-neon .neon-dust-point:nth-child(2) {
+        right: 6%;
+        top: 47%;
+    }
+
+    .neon-comet {
+        width: 56px;
+        right: -2%;
+        top: 25%;
+    }
+
+    .hero-neon .neon-comet {
+        right: -3%;
+        top: 56%;
+    }
+
+    .hero-neon::after {
+        background: linear-gradient(180deg, var(--hero-bg), transparent 72%);
+        opacity: .7;
+    }
+
+    .hero-neon .neon-orbit-one {
+        width: 430px;
+        height: 430px;
+        top: auto;
+        bottom: 1%;
+        right: -24%;
+    }
+
+    .hero-neon .neon-orbit-two {
+        display: none;
+    }
+
+    .hero-neon .neon-ribbon-one {
+        left: -60%;
+        top: 38%;
+        width: 100%;
+        opacity: calc(var(--neon-ribbon-opacity) * .55);
+    }
+
+    .hero-neon .neon-ribbon-two {
+        width: 115%;
+        right: -69%;
+        top: 10%;
+    }
+
+    .hero-neon .neon-motif-orb {
+        left: -16px;
+        top: 58%;
+        width: 62px;
+        height: 62px;
+    }
+
+    .hero-neon .neon-motif-cards {
+        right: -8px;
+        bottom: 13%;
+        width: 60px;
+        height: 60px;
+    }
+
+    .hero-neon .neon-motif-spark {
+        left: auto;
+        right: 5%;
+        bottom: auto;
+        top: 48%;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 380px) {
+    body:not(.admin-page) header {
+        column-gap: 6px;
+    }
+
+    .header-actions {
+        gap: 5px;
+    }
+
+    .appearance-controls {
+        gap: 4px;
+    }
+
+    .bag {
+        padding: 8px 6px;
+        font-size: 9px;
+    }
+
+    .bag span {
+        margin-left: 3px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Freeze decoration without moving it back to its starting position. */
+html:is([data-motion="paused"], [data-motion-visibility="hidden"]) :is(.site-atmosphere, .hero-neon, .hero-art),
+html:is([data-motion="paused"], [data-motion-visibility="hidden"]) :is(.site-atmosphere, .hero-neon, .hero-art) *,
+html:is([data-motion="paused"], [data-motion-visibility="hidden"]) :is(.site-atmosphere, .hero-neon, .hero-art) *::before,
+html:is([data-motion="paused"], [data-motion-visibility="hidden"]) :is(.site-atmosphere, .hero-neon, .hero-art) *::after,
+body:has(dialog[open]) :is(.site-atmosphere, .hero-neon, .hero-art),
+body:has(dialog[open]) :is(.site-atmosphere, .hero-neon, .hero-art) *,
+body:has(dialog[open]) :is(.site-atmosphere, .hero-neon, .hero-art) *::before,
+body:has(dialog[open]) :is(.site-atmosphere, .hero-neon, .hero-art) *::after {
+    animation-play-state: paused !important;
+}
+
+html[data-motion="reduced"] :is(.site-atmosphere, .hero-neon, .hero-art),
+html[data-motion="reduced"] :is(.site-atmosphere, .hero-neon, .hero-art) *,
+html[data-motion="reduced"] :is(.site-atmosphere, .hero-neon, .hero-art) *::before,
+html[data-motion="reduced"] :is(.site-atmosphere, .hero-neon, .hero-art) *::after {
+    animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html:not([data-motion="running"]):not([data-motion="paused"]) :is(.site-atmosphere, .hero-neon, .hero-art),
+    html:not([data-motion="running"]):not([data-motion="paused"]) :is(.site-atmosphere, .hero-neon, .hero-art) *,
+    html:not([data-motion="running"]):not([data-motion="paused"]) :is(.site-atmosphere, .hero-neon, .hero-art) *::before,
+    html:not([data-motion="running"]):not([data-motion="paused"]) :is(.site-atmosphere, .hero-neon, .hero-art) *::after {
+        animation: none !important;
+    }
+}

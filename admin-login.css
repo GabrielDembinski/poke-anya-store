@@ -1,0 +1,119 @@
+html[data-admin-pending] .admin-page> :not(#admin-access-status):not(noscript) {
+    display: none !important;
+}
+
+.admin-access-status {
+    max-width: 560px;
+    margin: 70px auto;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.admin-login-page .auth-card-heading {
+    margin-bottom: 25px;
+}
+
+.admin-login-page .auth-card-heading>p,
+.admin-login-page .auth-story>p {
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.admin-login-page .auth-field {
+    font-size: 14px;
+}
+
+.admin-login-page .auth-field input {
+    font-size: 16px;
+}
+
+.admin-login-page .auth-notice p,
+.admin-login-page .auth-error,
+.admin-login-page .auth-small-note,
+.admin-login-page .auth-status {
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.admin-login-page .auth-notice p {
+    margin: 0 0 10px;
+}
+
+.admin-login-page .auth-inline-button,
+.admin-login-page .auth-submit {
+    font-size: 14px;
+}
+
+.admin-login-page .auth-password-toggle {
+    font-size: 13px;
+}
+
+.admin-login-page .auth-field input::placeholder {
+    font-size: 14px;
+}
+
+.admin-session-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.admin-session-controls [data-admin-name] {
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.admin-session-controls button {
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.admin-session-controls button:hover {
+    background: var(--surface-soft);
+}
+
+.admin-session-controls button:disabled {
+    opacity: .65;
+}
+
+.admin-session-controls>a {
+    color: var(--accent);
+    font-size: 14px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+}
+
+.admin-topbar {
+    flex-wrap: wrap;
+    row-gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .admin-session-controls [data-admin-name] {
+        display: none;
+    }
+
+    .admin-session-controls button {
+        padding: 8px 10px;
+    }
+
+    .admin-access-status {
+        margin: 35px 5%;
+    }
+}

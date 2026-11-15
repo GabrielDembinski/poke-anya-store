@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="marca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Acesso do administrador · PokeAnya Store</title>
+    <link rel="icon" href="assets/marca.jpg">
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="admin-login.css">
+    <script src="admin-client.js" defer></script>
+    <script src="admin-login.js" defer></script>
+</head>
+<body class="customer-auth-page admin-login-page">
+    <a class="skip-link" href="#admin-login-card">Ir para o acesso administrativo</a>
+    <header class="auth-topbar"><a class="brand" href="index.html" aria-label="Voltar à loja PokeAnya"><img src="assets/marca.jpg" alt=""><span>POKE<span class="pink">ANYA</span><small>PAINEL DA LOJA</small></span></a><div class="auth-topbar-actions"><a class="auth-back-link" href="index.html">Voltar à loja ↗</a><label class="theme-control"><span aria-hidden="true">◐</span><select data-theme-select aria-label="Tema da página"><option value="marca">Identidade da loja</option><option value="claro">Claro</option><option value="escuro">Escuro</option></select></label></div></header>
+    <main class="auth-layout">
+        <section class="auth-story" aria-labelledby="admin-story-title"><span class="kicker">SEU CANTINHO DE CONTROLE</span><h1 id="admin-story-title">Sua loja.<br> Seu universo.<br> <em>Seu cuidado.</em></h1><p>Entre para organizar os produtos, acompanhar os pedidos e cuidar de cada nova coleção.</p><div class="auth-brand-art"><span class="auth-art-star" aria-hidden="true">✦</span><img src="assets/marca.jpg" alt="Identidade da PokeAnya Store"><span class="auth-art-note">DE FÃ<br><strong>PARA FÃ.</strong></span></div></section>
+        <section class="auth-card" id="admin-login-card" aria-labelledby="admin-login-title">
+            <div class="auth-card-heading"><span class="kicker">ÁREA DO ADMINISTRADOR</span><h2 id="admin-login-title">Vamos cuidar da loja?</h2><p>Use o acesso exclusivo do responsável pela PokeAnya.</p></div>
+            <p id="admin-login-status" class="auth-status" role="status" aria-live="polite">Verificando o acesso…</p>
+            <div id="admin-login-service" class="auth-notice" role="alert" hidden><p>Não foi possível acessar o sistema administrativo. Abra a loja pelo INICIAR-LOJA.bat.</p><button type="button" class="auth-inline-button" data-admin-refresh>Tentar novamente</button></div>
+            <div id="admin-setup-note" class="auth-notice" role="note" hidden><p><strong>Configure o primeiro acesso.</strong> No computador da loja, abra CONFIGURAR-ADMIN.bat e defina o nome, e-mail e senha do administrador.</p><button type="button" class="auth-inline-button" data-admin-refresh>Já configurei, verificar acesso</button></div>
+            <form id="admin-login-form" class="auth-form">
+                <label class="auth-field" for="admin-email">E-mail do administrador<input id="admin-email" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="254" required placeholder="Seu e-mail de acesso"></label>
+                <label class="auth-field" for="admin-password">Senha<span class="auth-password-wrap"><input id="admin-password" name="password" type="password" autocomplete="current-password" maxlength="128" required placeholder="Sua senha"><button type="button" class="auth-password-toggle" id="admin-password-toggle" aria-controls="admin-password" aria-pressed="false">Mostrar</button></span></label>
+                <p class="auth-field-hint">Para recuperar o acesso, o responsável pode usar RECUPERAR-ADMIN.bat no computador da loja.</p>
+                <p id="admin-login-error" class="auth-error" role="alert" hidden></p>
+                <button type="submit" class="button purple auth-submit" id="admin-login-submit" disabled>Entrar no painel <span aria-hidden="true">↗</span></button>
+            </form>
+            <p class="auth-small-note">Este acesso é exclusivo da administração. Sua conta de cliente continua separada.</p>
+        </section>
+    </main>
+    <footer class="auth-footer"><span>PokeAnya Store · De fã para fã.</span><a href="index.html">Voltar à loja ↗</a></footer>
+</body>
+</html>
